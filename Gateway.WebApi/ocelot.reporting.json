@@ -1,0 +1,23 @@
+{
+    "Routes": [
+        {
+            "UpstreamPathTemplate": "/reporting/weatherforecast",
+            "DownstreamPathTemplate": "/weatherforecast",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "FKPAuth",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "Role": "user"
+            }
+        }
+    ]
+}
