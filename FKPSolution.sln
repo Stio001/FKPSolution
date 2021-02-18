@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{2388F397-C42F-437B-9D00-93D053C5DFCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication.WebApi", "Authentication.WebApi\Authentication.WebApi.csproj", "{F832B718-0C9A-418A-8FB9-EEABBCFC4308}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.WebApi", "Authentication.WebApi\Authentication.WebApi.csproj", "{F832B718-0C9A-418A-8FB9-EEABBCFC4308}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporting.WebApi", "Reporting.WebApi\Reporting.WebApi.csproj", "{BD8784B3-277A-445C-99B9-91569042EE49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reporting.WebApi", "Reporting.WebApi\Reporting.WebApi.csproj", "{BD8784B3-277A-445C-99B9-91569042EE49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.WebApi", "Gateway.WebApi\Gateway.WebApi.csproj", "{65FEA260-FDED-4A84-9847-03A02FA0AD02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.WebApi", "Gateway.WebApi\Gateway.WebApi.csproj", "{65FEA260-FDED-4A84-9847-03A02FA0AD02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analysis.WebApi", "Analysis.WebApi\Analysis.WebApi.csproj", "{41132D10-9957-4C6D-B1D6-A19F5F2246AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{65FEA260-FDED-4A84-9847-03A02FA0AD02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65FEA260-FDED-4A84-9847-03A02FA0AD02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65FEA260-FDED-4A84-9847-03A02FA0AD02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41132D10-9957-4C6D-B1D6-A19F5F2246AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41132D10-9957-4C6D-B1D6-A19F5F2246AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41132D10-9957-4C6D-B1D6-A19F5F2246AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41132D10-9957-4C6D-B1D6-A19F5F2246AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F832B718-0C9A-418A-8FB9-EEABBCFC4308} = {2388F397-C42F-437B-9D00-93D053C5DFCB}
 		{BD8784B3-277A-445C-99B9-91569042EE49} = {2388F397-C42F-437B-9D00-93D053C5DFCB}
+		{41132D10-9957-4C6D-B1D6-A19F5F2246AB} = {2388F397-C42F-437B-9D00-93D053C5DFCB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87D90430-2085-4299-BC18-31F9591B7272}
