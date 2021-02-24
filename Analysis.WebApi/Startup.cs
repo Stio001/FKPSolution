@@ -12,8 +12,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Analysis.WebApi.Models;
 using Analysis.WebApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
@@ -32,6 +34,10 @@ namespace Analysis.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             Configuration.Bind("JwtIssuerOptions", new JwtIssuerOptions());
+            Configuration.Bind("ConnectionStrings", new ConnectionStrings());
+
+            services.AddDbContext<AnalysisContext>(opt 
+                => opt.UseNpgsql(ConnectionStrings.AnalysisConnection));
 
             services.AddAuthentication(opt =>
                 {
