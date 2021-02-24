@@ -23,7 +23,7 @@ namespace Analysis.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TryParseDoc()
+        public async Task<IActionResult> TryParseDoc(string nameDoc)
         {
             RichEditDocumentServer richDocSrv = new RichEditDocumentServer();
 
@@ -45,10 +45,13 @@ namespace Analysis.WebApi.Controllers
             }
 
             const string headerPrefix = "heading";
-
-            var docModel = await _analysisContext.Docs.Include(doc => doc.DocParts).FirstOrDefaultAsync();
             var document = richDocSrv.Document;
 
+            var docModel = new Doc()
+            {
+                Name = nameDoc,
+                DocParts = new List<DocPart>()
+            };
             var docParts = docModel.DocParts;
 
             DocPart lastHeaderStylePart = null;
@@ -57,6 +60,9 @@ namespace Analysis.WebApi.Controllers
             foreach (var paragraph in document.Paragraphs)
             {
                 var paragraphText = document.GetText(paragraph.Range);
+                if (string.IsNullOrEmpty(paragraphText))
+                    continue;
+
                 // Заголовок - создаем узел диаграммы.
                 var docPart = new DocPart
                 {
@@ -112,9 +118,18 @@ namespace Analysis.WebApi.Controllers
                 }
             }
 
+            await _analysisContext.Docs.AddAsync(docModel);
             await _analysisContext.SaveChangesAsync();
 
-            return Ok();
+            return Ok(docParts.Select(docPart => new
+            {
+                docPart.Id,
+                docPart.PartLevel,
+                docPart.Header,
+                docPart.Content,
+                docPart.ParentId,
+                docPart.DocId
+            }));
         }
 
         [HttpGet("{id}")]
@@ -137,6 +152,24 @@ namespace Analysis.WebApi.Controllers
         public async Task<IActionResult> GetDocumentsList()
         {
             return new ObjectResult(await _analysisContext.Docs.ToListAsync());
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDoc(Guid id)
+        {
+            try
+            {
+                var doc = await _analysisContext.Docs.FirstOrDefaultAsync(d => d.Id == id);
+                _analysisContext.Docs.Remove(doc);
+
+                await _analysisContext.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
