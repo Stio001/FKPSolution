@@ -30,7 +30,8 @@ namespace Analysis.WebApi.Controllers
             bool docLoadOK = false;
             try
             {
-                //var file = Request.Form.Files[0];
+                //var formCollection = await Request.ReadFormAsync();
+                //var file = formCollection.Files.First();
                 //docLoadOK = richDocSrv.LoadDocument(file.OpenReadStream());
                 docLoadOK = richDocSrv.LoadDocument("C:\\Users\\User\\source\\repos\\FKPSolution\\Analysis.WebApi\\Documents\\rasporyagenie.docx");
             }
