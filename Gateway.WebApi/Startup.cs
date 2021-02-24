@@ -52,6 +52,8 @@ namespace Gateway.WebApi
                 };
             });
 
+            services.AddCors();
+
             services.AddOcelot();
         }
 
@@ -64,6 +66,11 @@ namespace Gateway.WebApi
             }
 
             app.UseRouting();
+
+            app.UseCors(builder =>
+                builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin());
 
             app.UseAuthentication();
             app.UseAuthorization();
