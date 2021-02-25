@@ -30,10 +30,10 @@ namespace Analysis.WebApi.Controllers
             bool docLoadOK = false;
             try
             {
-                //var formCollection = await Request.ReadFormAsync();
-                //var file = formCollection.Files.First();
-                //docLoadOK = richDocSrv.LoadDocument(file.OpenReadStream());
-                docLoadOK = richDocSrv.LoadDocument("Documents\\rasporyagenie.docx");
+                var formCollection = await Request.ReadFormAsync();
+                var file = formCollection.Files.First();
+                docLoadOK = richDocSrv.LoadDocument(file.OpenReadStream());
+                //docLoadOK = richDocSrv.LoadDocument("Documents\\rasporyagenie.docx");
             }
             catch
             {
