@@ -4,7 +4,7 @@
             "UpstreamPathTemplate": "/auth/login",
             "DownstreamPathTemplate": "/api/auth/login",
             "UpstreamHttpMethod": [ "POST" ],
-            "DownstreamScheme": "https",
+            "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
@@ -16,7 +16,7 @@
             "UpstreamPathTemplate": "/token/refresh",
             "DownstreamPathTemplate": "/api/token/refresh",
             "UpstreamHttpMethod": [ "POST" ],
-            "DownstreamScheme": "https",
+            "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
@@ -28,7 +28,7 @@
             "UpstreamPathTemplate": "/token/revoke",
             "DownstreamPathTemplate": "/api/token/revoke",
             "UpstreamHttpMethod": [ "POST" ],
-            "DownstreamScheme": "https",
+            "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",

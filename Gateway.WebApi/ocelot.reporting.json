@@ -1,5 +1,88 @@
 {
     "Routes": [
-
+        {
+            "UpstreamPathTemplate": "/reporting/versions",
+            "DownstreamPathTemplate": "/versions",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/reporting/versions/{id}",
+            "DownstreamPathTemplate": "/versions/{id}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/reporting/spacecrafts/spacecraftschedule/{versionId}",
+            "DownstreamPathTemplate": "/spacecrafts/spacecraftschedule/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/reporting/targetindicators/{versionId}",
+            "DownstreamPathTemplate": "/targetindicators/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/reporting/workevents/getworks/{versionId}",
+            "DownstreamPathTemplate": "/workevents/getworks/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/reporting/workevents/getworkresults/{versionId}/{workId}",
+            "DownstreamPathTemplate": "/workevents/getworkresults/{versionId}/{workId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/reporting/finance/financeworkplaces/{versionId}",
+            "DownstreamPathTemplate": "/finance/financeworkplaces/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        }
     ]
 }

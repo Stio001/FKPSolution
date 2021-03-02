@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
+namespace Reporting.WebApi.Models.DbModels
+{
+    public partial class VTechnicTypeRn
+    {
+        public Guid Rid { get; set; }
+        public Guid EntryId { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public decimal? PlanSas { get; set; }
+        public Guid? Kkid { get; set; }
+        public Guid? Cnid { get; set; }
+        public byte[] Picture { get; set; }
+        public string KkidCode { get; set; }
+        public string KkidName { get; set; }
+        public string CnidCode { get; set; }
+        public string CnidName { get; set; }
+        public int? ClassRn { get; set; }
+        public string ClassRnCode { get; set; }
+        public Guid VersionId { get; set; }
+    }
+}

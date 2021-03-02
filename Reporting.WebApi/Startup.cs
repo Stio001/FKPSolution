@@ -13,8 +13,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Reporting.WebApi.Models.DbModels;
 using Reporting.WebApi.Services;
 
 namespace Reporting.WebApi
@@ -32,6 +34,10 @@ namespace Reporting.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             Configuration.Bind("JwtIssuerOptions", new JwtIssuerOptions());
+            Configuration.Bind("ConnectionStrings", new ConnectionStrings());
+
+            services.AddDbContext<FKPSystemContext>(options =>
+                options.UseSqlServer(ConnectionStrings.FKPConnection));
 
             services.AddAuthentication(opt =>
             {

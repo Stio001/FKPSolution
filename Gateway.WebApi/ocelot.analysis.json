@@ -4,7 +4,7 @@
             "UpstreamPathTemplate": "/analysis/document/TryParseDoc",
             "DownstreamPathTemplate": "/analysis/document/TryParseDoc",
             "UpstreamHttpMethod": [ "POST" ],
-            "DownstreamScheme": "https",
+            "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
@@ -16,7 +16,7 @@
             "UpstreamPathTemplate": "/analysis/document/GetDocModel/{id}",
             "DownstreamPathTemplate": "/analysis/document/GetDocModel/{id}",
             "UpstreamHttpMethod": [ "GET" ],
-            "DownstreamScheme": "https",
+            "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
@@ -28,7 +28,7 @@
             "UpstreamPathTemplate": "/analysis/document/GetDocumentsList",
             "DownstreamPathTemplate": "/analysis/document/GetDocumentsList",
             "UpstreamHttpMethod": [ "GET" ],
-            "DownstreamScheme": "https",
+            "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
@@ -40,7 +40,7 @@
             "UpstreamPathTemplate": "/analysis/document/DeleteDoc/{id}",
             "DownstreamPathTemplate": "/analysis/document/DeleteDoc/{id}",
             "UpstreamHttpMethod": [ "DELETE" ],
-            "DownstreamScheme": "https",
+            "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
