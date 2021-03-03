@@ -5,9 +5,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Analysis.WebApi.Models;
-using DevExpress.XtraRichEdit;
-using DevExpress.XtraRichEdit.API.Native;
 using Microsoft.EntityFrameworkCore;
+using Novacode;
 
 namespace Analysis.WebApi.Controllers
 {
@@ -25,28 +24,19 @@ namespace Analysis.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> TryParseDoc(string nameDoc)
         {
-            RichEditDocumentServer richDocSrv = new RichEditDocumentServer();
-
-            bool docLoadOK = false;
+            DocX document;
             try
             {
-                var formCollection = await Request.ReadFormAsync();
-                var file = formCollection.Files.First();
-                docLoadOK = richDocSrv.LoadDocument(file.OpenReadStream());
-                //docLoadOK = richDocSrv.LoadDocument("Documents\\rasporyagenie.docx");
+                //var formCollection = await Request.ReadFormAsync();
+                //var file = formCollection.Files.First();
+                //DocX document = DocX.Load(file.OpenReadStream());
+                document = DocX.Load("Documents\\rasporyagenie.docx");
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest("Не удалось загрузить документ.");
+                return BadRequest("Не удалось загрузить документ");
             }
-
-            if (!docLoadOK)
-            {
-                return BadRequest("Не удалось загрузить документ.");
-            }
-
-            const string headerPrefix = "heading";
-            var document = richDocSrv.Document;
+            
 
             var docModel = new Doc()
             {
@@ -60,7 +50,7 @@ namespace Analysis.WebApi.Controllers
             bool isListItem = false;
             foreach (var paragraph in document.Paragraphs)
             {
-                var paragraphText = document.GetText(paragraph.Range);
+                var paragraphText = paragraph.Text;
                 if (string.IsNullOrEmpty(paragraphText))
                     continue;
 
@@ -70,21 +60,11 @@ namespace Analysis.WebApi.Controllers
                     Content = paragraphText
                 };
 
-                var headerStyle = paragraph.Style.Name.ToLowerInvariant();
-                if (headerStyle.StartsWith(headerPrefix))
+                if (int.TryParse(paragraph.StyleName, out int partLevel))
                 {
-                    var headerStyleSplit = paragraph.Style.Name.Split(' ');
-                    if (headerStyleSplit.Length > 1 && int.TryParse(headerStyleSplit.LastOrDefault(), out int partLevel))
-                    {
                         docPart.PartLevel = partLevel;
-                    }
-                    else
-                    {
-                        docPart.PartLevel = 0;
-                    }
-
-                    lastHeaderStylePart = docPart;
-                    docParts.Add(docPart);
+                        lastHeaderStylePart = docPart;
+                        docParts.Add(docPart);
                 }
                 else
                 // Не заголовок - добавляем параграф к предыдущему узлу.
