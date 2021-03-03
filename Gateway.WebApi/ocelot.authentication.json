@@ -39,6 +39,155 @@
                 "AuthenticationProviderKey": "FKPAuth",
                 "AllowedScopes": []
             }
+        },
+        {
+            "UpstreamPathTemplate": "/users",
+            "DownstreamPathTemplate": "/api/users",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5003
+                }
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "FKPAuth",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "Role": "admin"
+            }
+        },
+        {
+            "UpstreamPathTemplate": "/users/{id}",
+            "DownstreamPathTemplate": "/api/users/{id}",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5003
+                }
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "FKPAuth",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "Role": "admin"
+            }
+        },
+        {
+            "UpstreamPathTemplate": "/users/changepassword",
+            "DownstreamPathTemplate": "/api/users/changepassword",
+            "UpstreamHttpMethod": [ "PUT" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5003
+                }
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "FKPAuth",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "UpstreamPathTemplate": "/roles",
+            "DownstreamPathTemplate": "/api/roles",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5003
+                }
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "FKPAuth",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "Role": "admin"
+            }
+        },
+        {
+            "UpstreamPathTemplate": "/roles/{roleName}",
+            "DownstreamPathTemplate": "/api/roles/{roleName}",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5003
+                }
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "FKPAuth",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "Role": "admin"
+            }
+        },
+        {
+            "UpstreamPathTemplate": "/roles/{roleId}",
+            "DownstreamPathTemplate": "/api/roles/{roleId}",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5003
+                }
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "FKPAuth",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "Role": "admin"
+            }
+        },
+        {
+            "UpstreamPathTemplate": "/roles/getuserroles/{userId}",
+            "DownstreamPathTemplate": "/api/roles/getuserroles/{userId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5003
+                }
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "FKPAuth",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "Role": "admin"
+            }
+        },
+        {
+            "UpstreamPathTemplate": "/roles/changeuserroles/{userId}",
+            "DownstreamPathTemplate": "/api/roles/changeuserroles/{userId}",
+            "UpstreamHttpMethod": [ "PUT" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5003
+                }
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "FKPAuth",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "Role": "admin"
+            }
         }
     ]
 }

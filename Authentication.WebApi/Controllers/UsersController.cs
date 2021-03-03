@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Authentication.WebApi.Models;
 using Authentication.WebApi.Models.DbModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Authentication.WebApi.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -37,18 +38,38 @@ namespace Authentication.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AppUser user)
+        public async Task<IActionResult> Create(CreateUserViewModel model)
         {
-            try
+            AppUser user = new AppUser()
             {
-                await _userManager.UpdateAsync(user);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+                UserName = model.UserName,
+                Email = model.Email
+            };
 
-            return Ok();
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (result == IdentityResult.Success)
+                return Ok();
+
+            return BadRequest(result.Errors);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Edit(EditUserViewModel model)
+        {
+            var user = await _userManager.FindByNameAsync(model.UserName);
+            if (user == null)
+                return BadRequest("Пользователь не найден.");
+
+            user.Email = model.Email;
+            user.LockoutEnd = model.LockoutEnd;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result == IdentityResult.Success)
+                return Ok();
+
+            return BadRequest(result.Errors);
         }
 
         [HttpDelete("{id}")]
@@ -67,6 +88,22 @@ namespace Authentication.WebApi.Controllers
             }
 
             return BadRequest("Пользователь не найден.");
+        }
+
+        [HttpPut("changepassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+
+            if (user == null)
+                return BadRequest("Пользователь не найден");
+
+            var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+
+            if (result == IdentityResult.Success)
+                return Ok();
+
+            return BadRequest(result.Errors);
         }
     }
 }

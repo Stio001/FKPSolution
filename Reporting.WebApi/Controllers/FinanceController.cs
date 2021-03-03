@@ -20,7 +20,7 @@ namespace Reporting.WebApi.Controllers
             _fkpSystemContext = fkpSystemContext;
         }
 
-        [Route("financeworkplaces/{versionId}"), HttpGet]
+        [HttpGet("financeworkplaces/{versionId}")]
         public async Task<IActionResult> FinanceWorkPlaces(Guid versionId)
         {
             var financeWorkPlaces = await _fkpSystemContext.VWorkFinanceWorkPlaces

@@ -20,7 +20,7 @@ namespace Reporting.WebApi.Controllers
             _fkpSystemContext = fkpSystemContext;
         }
 
-        [Route("spacecraftschedule/{versionId}"), HttpGet]
+        [HttpGet("spacecraftschedule/{versionId}")]
         public async Task<IActionResult> SpacecraftSchedule(Guid versionId)
         {
             var spacecraftSchedule = await _fkpSystemContext.VSpacecraftSpacecraftSchedules

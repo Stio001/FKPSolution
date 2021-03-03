@@ -20,7 +20,7 @@ namespace Reporting.WebApi.Controllers
             _fkpSystemContext = fkpSystemContext;
         }
 
-        [Route("getworks/{versionId}"), HttpGet]
+        [HttpGet("getworks/{versionId}")]
         public async Task<IActionResult> GetWorks(Guid versionId)
         {
             var works = await _fkpSystemContext.VDictionaryWorks
@@ -32,7 +32,7 @@ namespace Reporting.WebApi.Controllers
             return new ObjectResult(works);
         }
 
-        [Route("getworkresults/{versionId}/{workId}"), HttpGet]
+        [HttpGet("getworkresults/{versionId}/{workId}")]
         public async Task<IActionResult> GetWorkResults(Guid versionId, Guid workId)
         {
             var workResults = await _fkpSystemContext.VDictionaryWorkEventResults
