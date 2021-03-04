@@ -20,6 +20,11 @@ namespace Reporting.WebApi.Controllers
             _fkpSystemContext = fkpSystemContext;
         }
 
+        /// <summary>
+        /// Важнейшие целевые индикаторы и показатели.
+        /// </summary>
+        /// <param name="versionId">Id версии, для которой возвращаются данные.</param>
+        /// <returns></returns>
         [HttpGet("{versionId}")]
         public async Task<IActionResult> Get(Guid versionId)
         {

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Analysis.WebApi.Models;
+using Analysis.WebApi.Models.DbModels;
 using Microsoft.EntityFrameworkCore;
 using Novacode;
 
@@ -22,7 +25,7 @@ namespace Analysis.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TryParseDoc(string nameDoc)
+        public async Task<IActionResult> TryParseDoc2(string nameDoc)
         {
             DocX document;
             try
@@ -32,15 +35,17 @@ namespace Analysis.WebApi.Controllers
                 //DocX document = DocX.Load(file.OpenReadStream());
                 document = DocX.Load("Documents\\rasporyagenie.docx");
             }
-            catch (Exception e)
+            catch 
             {
                 return BadRequest("Не удалось загрузить документ");
             }
-            
+
+            var docType = await _analysisContext.DocTypes.FirstOrDefaultAsync();
 
             var docModel = new Doc()
             {
                 Name = nameDoc,
+                Type = docType,
                 DocParts = new List<DocPart>()
             };
             var docParts = docModel.DocParts;
@@ -54,7 +59,6 @@ namespace Analysis.WebApi.Controllers
                 if (string.IsNullOrEmpty(paragraphText))
                     continue;
 
-                // Заголовок - создаем узел диаграммы.
                 var docPart = new DocPart
                 {
                     Content = paragraphText
@@ -62,12 +66,16 @@ namespace Analysis.WebApi.Controllers
 
                 if (int.TryParse(paragraph.StyleName, out int partLevel))
                 {
-                        docPart.PartLevel = partLevel;
-                        lastHeaderStylePart = docPart;
-                        docParts.Add(docPart);
+                    var docParent = docParts.LastOrDefault(d => d.PartLevel == partLevel - 1);
+
+                    if (docParent != null)
+                        docPart.Parent = docParent;
+
+                    docPart.PartLevel = partLevel;
+                    lastHeaderStylePart = docPart;
+                    docParts.Add(docPart);
                 }
                 else
-                // Не заголовок - добавляем параграф к предыдущему узлу.
                 {
                     if (isListItem && titleListItems != null)
                     {
@@ -106,11 +114,57 @@ namespace Analysis.WebApi.Controllers
             {
                 docPart.Id,
                 docPart.PartLevel,
-                docPart.Header,
                 docPart.Content,
                 docPart.ParentId,
                 docPart.DocId
             }));
+        }
+
+        [HttpPost, DisableRequestSizeLimit]
+        public async Task<IActionResult> TryParseDoc()
+        {
+            try
+            {
+                var formCollection = await Request.ReadFormAsync();
+                var file = formCollection.Files.First();
+                var folderName = Path.Combine("Resources", "Documents");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+                    await using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    var docType = _analysisContext.DocTypes.FirstOrDefault();
+
+                    var doc = new Doc()
+                    {
+                        Name = "Госполитика",
+                        Description = "Описание",
+                        TypeId = docType.Id,
+                        FilePath = dbPath,
+                        FileName = fileName
+                    };
+
+                    await _analysisContext.Docs.AddAsync(doc);
+                    await _analysisContext.SaveChangesAsync();
+
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
 
         [HttpGet("{id}")]
@@ -121,7 +175,6 @@ namespace Analysis.WebApi.Controllers
                 {
                     docPart.Id,
                     docPart.PartLevel,
-                    docPart.Header,
                     docPart.Content,
                     docPart.ParentId,
                     docPart.DocId

@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace Analysis.WebApi.Models
 {
-    public class DocType
+    public class DocPartTypeForUpdateDto
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public List<Doc> Docs { get; set; }
+        public string KeyWords { get; set; }
     }
 }

@@ -55,5 +55,33 @@ namespace Reporting.WebApi.Controllers
 
             return new ObjectResult(version);
         }
+
+        /// <summary>
+        /// Цели.
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        [HttpGet("getGoals/{versionId}")]
+        public async Task<IActionResult> GetGoals(Guid versionId)
+        {
+            var goals = await _fkpSystemContext.VStructureStructureLights
+                .Where(s => s.VersionId == versionId && s.TypeIdCode == "Цели").ToListAsync();
+
+            return new ObjectResult(goals);
+        }
+
+        /// <summary>
+        /// Задачи.
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        [HttpGet("getObjectives/{versionId}")]
+        public async Task<IActionResult> GetObjectives(Guid versionId)
+        {
+            var objectives = await _fkpSystemContext.VStructureStructureLights
+                .Where(s => s.VersionId == versionId && s.TypeIdCode == "Задачи").ToListAsync();
+
+            return new ObjectResult(objectives);
+        }
     }
 }

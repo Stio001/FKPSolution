@@ -1,7 +1,7 @@
 {
     "Routes": [
         {
-            "UpstreamPathTemplate": "/reporting/versions",
+            "UpstreamPathTemplate": "/versions",
             "DownstreamPathTemplate": "/versions",
             "UpstreamHttpMethod": [ "GET" ],
             "DownstreamScheme": "http",
@@ -13,7 +13,7 @@
             ]
         },
         {
-            "UpstreamPathTemplate": "/reporting/versions/{id}",
+            "UpstreamPathTemplate": "/versions/{id}",
             "DownstreamPathTemplate": "/versions/{id}",
             "UpstreamHttpMethod": [ "GET" ],
             "DownstreamScheme": "http",
@@ -25,7 +25,7 @@
             ]
         },
         {
-            "UpstreamPathTemplate": "/reporting/spacecrafts/spacecraftschedule/{versionId}",
+            "UpstreamPathTemplate": "/spacecrafts/spacecraftschedule/{versionId}",
             "DownstreamPathTemplate": "/spacecrafts/spacecraftschedule/{versionId}",
             "UpstreamHttpMethod": [ "GET" ],
             "DownstreamScheme": "http",
@@ -37,7 +37,31 @@
             ]
         },
         {
-            "UpstreamPathTemplate": "/reporting/targetindicators/{versionId}",
+            "UpstreamPathTemplate": "/spacecrafts/getTotalLaunches/{versionId}",
+            "DownstreamPathTemplate": "/spacecrafts/getTotalLaunches/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/spacecrafts/getTotalCompletedLaunches/{versionId}",
+            "DownstreamPathTemplate": "/spacecrafts/getTotalCompletedLaunches/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/targetindicators/{versionId}",
             "DownstreamPathTemplate": "/targetindicators/{versionId}",
             "UpstreamHttpMethod": [ "GET" ],
             "DownstreamScheme": "http",
@@ -49,7 +73,7 @@
             ]
         },
         {
-            "UpstreamPathTemplate": "/reporting/workevents/getworks/{versionId}",
+            "UpstreamPathTemplate": "/workevents/getworks/{versionId}",
             "DownstreamPathTemplate": "/workevents/getworks/{versionId}",
             "UpstreamHttpMethod": [ "GET" ],
             "DownstreamScheme": "http",
@@ -61,7 +85,7 @@
             ]
         },
         {
-            "UpstreamPathTemplate": "/reporting/workevents/getworkresults/{versionId}/{workId}",
+            "UpstreamPathTemplate": "/workevents/getworkresults/{versionId}/{workId}",
             "DownstreamPathTemplate": "/workevents/getworkresults/{versionId}/{workId}",
             "UpstreamHttpMethod": [ "GET" ],
             "DownstreamScheme": "http",
@@ -73,8 +97,68 @@
             ]
         },
         {
-            "UpstreamPathTemplate": "/reporting/finance/financeworkplaces/{versionId}",
-            "DownstreamPathTemplate": "/finance/financeworkplaces/{versionId}",
+            "UpstreamPathTemplate": "/workevents/getTotalWorks/{versionId}",
+            "DownstreamPathTemplate": "/workevents/getTotalWorks/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/finance/getfinanceworkplaces/{versionId}",
+            "DownstreamPathTemplate": "/finance/getfinanceworkplaces/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/finance/getFinanceLimitsByYear/{versionId}",
+            "DownstreamPathTemplate": "/finance/getFinanceLimitsByYear/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/finance/getTotalFinanceLimit/{versionId}",
+            "DownstreamPathTemplate": "/finance/getTotalFinanceLimit/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/projects/{versionId}",
+            "DownstreamPathTemplate": "/projects/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/projects/getTotalProjects/{versionId}",
+            "DownstreamPathTemplate": "/projects/getTotalProjects/{versionId}",
             "UpstreamHttpMethod": [ "GET" ],
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [

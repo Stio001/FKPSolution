@@ -20,6 +20,11 @@ namespace Reporting.WebApi.Controllers
             _fkpSystemContext = fkpSystemContext;
         }
 
+        /// <summary>
+        /// Перечень космических аппаратов научного и социально-экономического назначения.
+        /// </summary>
+        /// <param name="versionId">Id версии, для которой возвращаются данные.</param>
+        /// <returns></returns>
         [HttpGet("spacecraftschedule/{versionId}")]
         public async Task<IActionResult> SpacecraftSchedule(Guid versionId)
         {
@@ -29,6 +34,33 @@ namespace Reporting.WebApi.Controllers
                             && s.StateCode == "Запланирован").ToListAsync();
 
             return new ObjectResult(spacecraftSchedule);
+        }
+
+        /// <summary>
+        /// Общее количество запусков.
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        [HttpGet("getTotalLaunches/{versionId}")]
+        public async Task<IActionResult> GetTotalLaunches(Guid versionId)
+        {
+            var totalLaunches = await _fkpSystemContext.VSpacecraftSpacecrafts.CountAsync(s => s.VersionId == versionId);
+
+            return new ObjectResult(totalLaunches);
+        }
+
+        /// <summary>
+        /// Количество выполненных запусков.
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        [HttpGet("getTotalCompletedLaunches/{versionId}")]
+        public async Task<IActionResult> GetTotalCompletedLaunches(Guid versionId)
+        {
+            var completedLaunches = await _fkpSystemContext.VSpacecraftSpacecrafts
+                .CountAsync(s => s.VersionId == versionId && s.StateName == "Запущен");
+
+            return new ObjectResult(completedLaunches);
         }
     }
 }
