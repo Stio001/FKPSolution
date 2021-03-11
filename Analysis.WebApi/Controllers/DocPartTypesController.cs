@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Analysis.WebApi.Models.DbModels;
+using Analysis.WebApi.Models.Dto;
 
 namespace Analysis.WebApi.Controllers
 {
@@ -19,13 +20,6 @@ namespace Analysis.WebApi.Controllers
         public DocPartTypesController(AnalysisContext context)
         {
             _context = context;
-        }
-
-        // GET: api/DocPartTypes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DocPartType>>> GetDocPartTypes()
-        {
-            return await _context.DocPartTypes.ToListAsync();
         }
 
         // GET: api/DocPartTypes/5
@@ -57,10 +51,10 @@ namespace Analysis.WebApi.Controllers
 
         // PUT: api/DocPartTypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{docPartTypeId}")]
-        public async Task<IActionResult> PutDocPartType(Guid docPartTypeId, DocPartTypeForUpdateDto model)
+        [HttpPut]
+        public async Task<IActionResult> PutDocPartType(DocPartTypeForUpdateDto model)
         {
-            var docPartType = await _context.DocPartTypes.FindAsync(docPartTypeId);
+            var docPartType = await _context.DocPartTypes.FindAsync(model.Id);
 
             if (docPartType == null)
                 return NotFound();
@@ -86,7 +80,7 @@ namespace Analysis.WebApi.Controllers
                 DocTypeId = model.DocTypeId
             };
 
-            _context.DocPartTypes.Add(docPartType);
+            await _context.DocPartTypes.AddAsync(docPartType);
             await _context.SaveChangesAsync();
 
             return Ok();

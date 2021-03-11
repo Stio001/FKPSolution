@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Analysis.WebApi.Models.DbModels;
+using Analysis.WebApi.Models.Dto;
 
 namespace Analysis.WebApi.Controllers
 {
@@ -94,11 +95,6 @@ namespace Analysis.WebApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool DocTypeExists(Guid id)
-        {
-            return _context.DocTypes.Any(e => e.Id == id);
         }
     }
 }

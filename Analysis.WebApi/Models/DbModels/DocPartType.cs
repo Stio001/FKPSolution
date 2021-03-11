@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Analysis.WebApi.Models.DbModels
 {
@@ -11,6 +12,7 @@ namespace Analysis.WebApi.Models.DbModels
         public List<DocPart> DocParts { get; set; }
 
         public Guid DocTypeId { get; set; }
+        [JsonIgnore]
         public DocType DocType { get; set; }
     }
 }

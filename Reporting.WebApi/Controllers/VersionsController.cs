@@ -83,5 +83,30 @@ namespace Reporting.WebApi.Controllers
 
             return new ObjectResult(objectives);
         }
+
+        [HttpGet("getGeneralInfo/{versionId}")]
+        public async Task<IActionResult> GetGeneralInfo(Guid versionId)
+        {
+            var totalFinanceLimit = await _fkpSystemContext.VFinanceLimits.Where(f => f.VersionId == versionId)
+                .SumAsync(f => f.NSum);
+
+            var totalProjects = await _fkpSystemContext.VProjectProjects.CountAsync(p => p.VersionId == versionId);
+
+            var totalWorks = await _fkpSystemContext.VDictionaryWorks.CountAsync(w => w.VersionId == versionId);
+
+            var totalLaunches = await _fkpSystemContext.VSpacecraftSpacecrafts.CountAsync(s => s.VersionId == versionId);
+
+            var totalCompletedLaunches = await _fkpSystemContext.VSpacecraftSpacecrafts
+                .CountAsync(s => s.VersionId == versionId && s.StateName == "Запущен");
+
+            return new ObjectResult(new
+            {
+                totalFinanceLimit,
+                totalProjects,
+                totalWorks,
+                totalLaunches,
+                totalCompletedLaunches
+            });
+        }
     }
 }

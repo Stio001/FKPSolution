@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Documents\" />
     <Folder Include="Resources\Documents\" />
   </ItemGroup>
 

@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Analysis.WebApi.Models;
 using Analysis.WebApi.Models.DbModels;
+using Analysis.WebApi.Models.Dto;
 using Microsoft.EntityFrameworkCore;
 
 namespace Analysis.WebApi.Controllers
 {
-    /*
     [Route("[controller]")]
     [ApiController]
     public class CatalogsController : ControllerBase
@@ -51,13 +51,6 @@ namespace Analysis.WebApi.Controllers
                 ParentId = model.ParentId
             };
 
-            var catalogParent = await _analysisContext.Catalogs.FindAsync(model.ParentId);
-
-            if (catalogParent != null)
-            {
-                catalog.FolderPath = catalogParent.FolderPath + "\\" + model.Name;
-            }
-
             try
             {
                 await _analysisContext.Catalogs.AddAsync(catalog);
@@ -72,18 +65,26 @@ namespace Analysis.WebApi.Controllers
             return Ok();
         }
 
-        [HttpPut("{catalogId}")]
-        public async Task<IActionResult> Edit(Guid catalogId, CatalogForUpdateDto model)
+        [HttpPut]
+        public async Task<IActionResult> Edit(CatalogForUpdateDto model)
         {
-            var catalog = await _analysisContext.Catalogs.FirstOrDefaultAsync(c => c.Id == catalogId);
+            var catalog = await _analysisContext.Catalogs.FirstOrDefaultAsync(c => c.Id == model.Id);
 
             if (catalog == null)
                 return BadRequest("Каталог не найден.");
 
             catalog.Description = model.Description;
 
-            _analysisContext.Update(catalog);
-            await _analysisContext.SaveChangesAsync();
+            try
+            {
+                _analysisContext.Update(catalog);
+                await _analysisContext.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
 
             return Ok();
         }
@@ -96,11 +97,17 @@ namespace Analysis.WebApi.Controllers
             if (catalog == null)
                 return BadRequest("Каталог не найден.");
 
-            _analysisContext.Catalogs.Remove(catalog);
-            await _analysisContext.SaveChangesAsync();
+            try
+            {
+                _analysisContext.Catalogs.Remove(catalog);
+                await _analysisContext.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
 
             return Ok();
         }
     }
-    */
 }

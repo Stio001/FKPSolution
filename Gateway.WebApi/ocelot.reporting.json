@@ -13,6 +13,18 @@
             ]
         },
         {
+            "UpstreamPathTemplate": "/versions/getGeneralInfo/{versionId}",
+            "DownstreamPathTemplate": "/versions/getGeneralInfo/{versionId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
             "UpstreamPathTemplate": "/versions/{id}",
             "DownstreamPathTemplate": "/versions/{id}",
             "UpstreamHttpMethod": [ "GET" ],
